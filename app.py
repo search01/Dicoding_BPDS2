@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 import joblib
 
 # Load model dan scaler
@@ -9,7 +8,7 @@ scaler = joblib.load("scaler.pkl")
 
 # Judul aplikasi
 st.title("Prediksi Status Mahasiswa")
-st.write("Aplikasi ini memprediksi apakah mahasiswa akan Dropout, Masih Terdaftar, atau Lulus.")
+st.write("Masukkan data berikut untuk memprediksi status mahasiswa:")
 
 # Input pengguna
 def user_input():
@@ -39,26 +38,24 @@ def user_input():
 
     return pd.DataFrame([data])
 
-# Ambil data dari input pengguna
+# Ambil input
 input_df = user_input()
 
-# Standarisasi input
-input_scaled = scaler.transform(input_df)
+# Tombol prediksi
+if st.button("Prediksi Status Mahasiswa"):
+    # Preprocessing
+    input_scaled = scaler.transform(input_df)
 
-# Prediksi
-pred_proba = model.predict_proba(input_scaled)
-pred_class = model.predict(input_scaled)
+    # Prediksi
+    pred_class = model.predict(input_scaled)[0]
 
-# Mapping label integer ke nama kelas
-label_dict = {0: "Dropout", 1: "Enrolled", 2: "Graduate"}
-pred_label = int(pred_class[0])
-label_text = label_dict.get(pred_label, "Tidak diketahui")
+    # Mapping hasil prediksi
+    label_dict = {
+        0: "Mahasiswa berpotensi dropout",
+        1: "Mahasiswa masih terdaftar dan belum lulus",
+        2: "Mahasiswa diprediksi lulus"
+    }
 
-# Tampilkan hasil
-st.subheader("Hasil Prediksi")
-st.write(f"**Status Mahasiswa:** {label_text}")
-
-# Opsional: tampilkan probabilitas
-st.subheader("Probabilitas Tiap Kelas")
-proba_df = pd.DataFrame(pred_proba[0].reshape(-1, 1), index=["Dropout", "Enrolled", "Graduate"], columns=["Probabilitas"])
-st.bar_chart(proba_df)
+    # Tampilkan hasil
+    st.subheader("Hasil Prediksi")
+    st.success(label_dict.get(int(pred_class), "Status tidak diketahui"))
