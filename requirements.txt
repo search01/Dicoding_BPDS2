@@ -1,0 +1,17 @@
+<<<<<<< HEAD
+streamlit
+numpy
+pandas
+scipy
+matplotlib
+seaborn
+joblib
+=======
+streamlit
+numpy
+pandas
+scipy
+matplotlib
+seaborn
+joblib
+>>>>>>> 971327e (Add streamlit app and model files for dropout prediction)
