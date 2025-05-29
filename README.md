@@ -58,9 +58,10 @@ df.to_sql('dataset', engine)
 ## Modeling
 Model yang digunakan untuk memprediksi adalah Random Forest Classifier, karena kemampuannya menangani fitur kategorikal dan numerik secara bersamaan serta memberikan interpretasi lewat feature importance.  
 ### Evaluasi Model
-* Akurasi: 0.87
+* Akurasi: 0.76
 * Precision dan Recall seimbang
-* Confusion matrix menunjukkan model mampu mendeteksi karyawan yang berisiko keluar dengan cukup baik.   
+* Confusion matrix menunjukkan model mampu mendeteksi karyawan yang berisiko keluar dengan cukup baik.
+  
     ![Image](https://github.com/user-attachments/assets/fdd6f36a-e48d-485b-bec3-ef3d94c80fc8)
   
 Berdasarkan hasil feature importance, atribut-atribut yang paling berkontribusi terhadap prediksi dropout antara lain:
